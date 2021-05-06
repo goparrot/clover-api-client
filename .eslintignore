@@ -1,0 +1,13 @@
+# dependencies
+dist/
+node_modules/
+
+# IDE
+/.idea
+/.vscode
+
+# test
+coverage
+
+README.md
+!.eslintrc.js
