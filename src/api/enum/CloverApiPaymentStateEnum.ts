@@ -1,0 +1,8 @@
+export enum CloverApiPaymentStateEnum {
+    OPEN = 'OPEN',
+    PAID = 'PAID',
+    REFUNDED = 'REFUNDED',
+    CREDITED = 'CREDITED',
+    PARTIALLY_PAID = 'PARTIALLY_PAID',
+    PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
+}
