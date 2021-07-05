@@ -1,4 +1,5 @@
 import type { ICloverApiHour } from './ICloverApiHour';
+import type { ICloverApiItemCategory } from './ICloverApiItemCategory';
 
 export interface ICloverApiOrderType {
     /* Unique identifier. */
@@ -32,4 +33,6 @@ export interface ICloverApiOrderType {
     isDeleted?: boolean;
     systemOrderTypeId?: string;
     hours?: ICloverApiHour;
+    /* The categories of items that can be assigned to this order type.*/
+    categories?: ICloverApiItemCategory[];
 }

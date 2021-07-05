@@ -1,0 +1,6 @@
+export enum CloverTaxTypeEnum {
+    VAT_TAXABLE = 'VAT_TAXABLE',
+    VAT_NOT_TAXABLE = 'VAT_NOT_TAXABLE',
+    VAT_EXEMPT = 'VAT_EXEMPT',
+    INTERNAL_TAX = 'INTERNAL_TAX',
+}

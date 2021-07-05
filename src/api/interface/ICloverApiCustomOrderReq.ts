@@ -1,4 +1,4 @@
-import type { CloverApiPaymentStateEnum } from '../enum';
+import type { CloverApiPaymentStateEnum, CloverPayTypeEnum } from '../enum';
 import type { ICloverApiCustomerRes } from './ICloverApiCustomerRes';
 import type { ICloverApiServiceCharge } from './ICloverApiServiceCharge';
 import type { ICloverApiOrderDiscount } from './ICloverApiOrderDiscount';
@@ -56,7 +56,7 @@ export interface ICloverApiCustomOrderReq {
      * During the payment flow, if the user chooses to split the payment for this order, this field will be set to one of the SPLIT* values to indicate how the full amount should be split.
      * If the user chooses to pay for the order in full with one payment, then this field will be FULL
      */
-    payType?: string;
+    payType?: CloverPayTypeEnum;
     /* Creation timestamp. */
     createdTime?: number;
     /* The time at which the client created this order. */

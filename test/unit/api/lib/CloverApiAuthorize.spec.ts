@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { CloverAuthResModel, CloverApiAuthorize } from '../../../../src/api';
+import { CloverApiAuthResModel, CloverApiAuthorize } from '../../../../src/api';
 import { CloverAxiosException } from '../../../../src/common';
 
 describe('CloverApiAuthorize (unit)', () => {
@@ -18,13 +18,13 @@ describe('CloverApiAuthorize (unit)', () => {
     describe('#confirm', () => {
         it('should return plain to class data', async () => {
             const fakeCode: string = 'd6d8eb73-d3ca-624a-5900-1014236c8c21';
-            const fakeCloverAuthResModel: CloverAuthResModel = { access_token: 'e8ab7eaa-f77d-3bc6-5a5d-d060921aabeb' };
+            const fakeCloverAuthResModel: CloverApiAuthResModel = { access_token: 'e8ab7eaa-f77d-3bc6-5a5d-d060921aabeb' };
             mock.onGet(`/oauth/token`).reply(200, fakeCloverAuthResModel);
 
-            const data: CloverAuthResModel = await authorize.confirm(appId, appSecret, fakeCode);
+            const data: CloverApiAuthResModel = await authorize.confirm(appId, appSecret, fakeCode);
 
             expect(fakeCloverAuthResModel).toEqual(data);
-            expect(data).toBeInstanceOf(CloverAuthResModel);
+            expect(data).toBeInstanceOf(CloverApiAuthResModel);
         });
 
         it('should throw error', async () => {

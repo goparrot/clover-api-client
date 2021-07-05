@@ -6,8 +6,10 @@ export class CloverApiCustomOrderResModel implements ICloverApiCustomOrderRes {
     clientCreatedTime: number;
     createdTime: number;
     currency: string;
+
     @Type(() => CloverApiEmployeeModel)
     employee: CloverApiEmployeeModel;
+
     groupLineItems: boolean;
     href: string;
     id: string;

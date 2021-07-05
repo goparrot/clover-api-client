@@ -5,6 +5,7 @@ import { CloverApiCustomerModel } from './CloverApiCustomerModel';
 export class CloverApiCustomerPhoneNumberResModel implements ICloverApiCustomerPhoneNumberRes {
     @Type(() => CloverApiCustomerModel)
     customer: CloverApiCustomerModel;
+
     id: string;
     phoneNumber: string;
 }

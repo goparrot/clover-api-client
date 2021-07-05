@@ -11,18 +11,25 @@ import { CloverApiCustomerMerchantResModel } from './CloverApiCustomerMerchantRe
 export class CloverApiCustomerResModel implements ICloverApiCustomerRes {
     @Type(() => CloverApiCustomerAddressElemResModel)
     addresses?: CloverApiCustomerAddressElemResModel;
+
     @Type(() => CloverApiCustomerCardElemResModel)
     cards?: CloverApiCustomerCardElemResModel;
+
     @Type(() => CloverApiCustomerEmailAddressElemResModel)
     emailAddresses?: CloverApiCustomerEmailAddressElemResModel;
+
     @Type(() => CloverApiCustomerMetadataResModel)
     metadata?: CloverApiCustomerMetadataResModel;
+
     @Type(() => CloverApiCustomerPhoneNumberElemResModel)
     phoneNumbers?: CloverApiCustomerPhoneNumberElemResModel;
+
     @Type(() => CloverApiCustomerOrderResModel)
     orders?: CloverApiCustomerOrderResModel;
+
     @Type(() => CloverApiCustomerMerchantResModel)
     merchant?: CloverApiCustomerMerchantResModel;
+
     firstName?: string;
     lastName?: string;
     customerSince: number;

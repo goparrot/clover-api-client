@@ -9,8 +9,10 @@ export class CloverApiCustomOrderLineItemResModel implements ICloverApiCustomOrd
     isRevenue: boolean;
     name: string;
     orderClientCreatedTime: number;
+
     @Type(() => CloverApiOrderRefModel)
     orderRef: CloverApiOrderRefModel;
+
     price: number;
     printed: boolean;
     refunded: boolean;
