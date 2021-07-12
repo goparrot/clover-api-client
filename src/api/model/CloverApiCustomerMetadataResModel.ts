@@ -4,8 +4,10 @@ import { CloverApiCustomerModel } from './CloverApiCustomerModel';
 
 export class CloverApiCustomerMetadataResModel implements ICloverApiCustomerMetadataRes {
     businessName: string;
+
     @Type(() => CloverApiCustomerModel)
     customer: CloverApiCustomerModel;
+
     dobDay: string;
     dobMonth: string;
     dobYear: string;

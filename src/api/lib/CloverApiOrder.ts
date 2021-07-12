@@ -2,8 +2,21 @@ import type { AxiosResponse } from 'axios';
 import { plainToClass } from 'class-transformer';
 import type { ICloverAxiosConfig } from '../../common';
 import { CloverConfig } from '../../common';
-import type { ICloverApiCustomOrderReq, ICloverApiCustomOrderRes, ICloverApiCustomLineItemReq, ICloverApiCustomOrderLineItemRes } from '../interface';
-import { CloverApiCustomOrderResModel, CloverApiCustomOrderLineItemResModel } from '../model';
+import type {
+    ICloverApiCustomOrderReq,
+    ICloverApiCustomOrderRes,
+    ICloverApiCustomLineItemReq,
+    ICloverApiCustomOrderLineItemRes,
+    ICloverApiAtomicOrderReq,
+    ICloverApiAtomicOrderRes,
+    ICloverApiCheckoutAtomicOrderCart,
+} from '../interface';
+import {
+    CloverApiCustomOrderResModel,
+    CloverApiCustomOrderLineItemResModel,
+    CloverApiCheckoutAtomicOrderResModel,
+    CloverApiAtomicOrderResModel,
+} from '../model';
 
 export class CloverApiOrder extends CloverConfig {
     constructor(config: ICloverAxiosConfig) {
@@ -23,5 +36,23 @@ export class CloverApiOrder extends CloverConfig {
         );
 
         return plainToClass(CloverApiCustomOrderLineItemResModel, response.data);
+    }
+
+    async checkoutAtomic(merchantId: string, data: ICloverApiAtomicOrderReq): Promise<CloverApiCheckoutAtomicOrderResModel> {
+        const response: AxiosResponse<ICloverApiCheckoutAtomicOrderCart> = await this.client.post<ICloverApiCheckoutAtomicOrderCart>(
+            `/v3/merchants/${merchantId}/atomic_order/checkouts`,
+            data,
+        );
+
+        return plainToClass(CloverApiCheckoutAtomicOrderResModel, response.data);
+    }
+
+    async createAtomic(merchantId: string, data: ICloverApiAtomicOrderReq): Promise<CloverApiAtomicOrderResModel> {
+        const response: AxiosResponse<ICloverApiAtomicOrderRes> = await this.client.post<ICloverApiAtomicOrderRes>(
+            `/v3/merchants/${merchantId}/atomic_order/orders`,
+            data,
+        );
+
+        return plainToClass(CloverApiAtomicOrderResModel, response.data);
     }
 }

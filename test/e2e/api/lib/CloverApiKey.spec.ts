@@ -27,6 +27,7 @@ describe('CloverApiKey (e2e)', () => {
                 expect(e.message).toEqual('Request failed with status code 401, Response: {"message":"401 Unauthorized"}');
             });
         });
+
         it('should do 3 retries with status 500', async () => {
             cloverApiKey = new CloverApiKey({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
             mock = new MockAdapter(cloverApiKey.client);

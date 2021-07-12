@@ -7,9 +7,12 @@ import { CloverApiCustomerCardAdditionalInfoResModel } from './CloverApiCustomer
 export class CloverApiCustomerCardResModel implements ICloverApiCustomerCardRes {
     @Type(() => CloverApiCustomerCardAdditionalInfoResModel)
     additionalInfo: CloverApiCustomerCardAdditionalInfoResModel;
+
     cardType: CloverCardBrandEnum;
+
     @Type(() => CloverApiCustomerModel)
     customer: CloverApiCustomerModel;
+
     expirationDate: string;
     first6: string;
     id: string;

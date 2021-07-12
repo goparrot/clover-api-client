@@ -15,7 +15,6 @@ describe('CloverApiCustomer (unit)', () => {
         customerSince: 1619008646000,
     };
     const fakeAccessToken: string = 'fakeAccessToken';
-
     const cloverApiCustomerListResModel: CloverApiCustomerListResModel = {
         elements: [cloverApiCustomerResModel],
         href: `http://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/customers?limit=100`,
