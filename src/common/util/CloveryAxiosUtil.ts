@@ -7,6 +7,8 @@ import { stringify } from 'qs';
 import { CloverAxiosException } from '../exception';
 import type { ICloverAxiosConfig, ICloverAxiosRequestConfig } from '../interface';
 
+export const defaultMaxRetries = 6;
+
 /**
  * @throws {AxiosException}
  */
@@ -37,7 +39,7 @@ export function createAxiosInstance(config: ICloverAxiosConfig): AxiosInstance {
         axios,
         deepmerge<IAxiosRetryConfig>(
             {
-                retries: config.maxRetries || 6, // ~ 15s
+                retries: config.maxRetries || defaultMaxRetries, // ~ 15s
                 shouldResetTimeout: true,
                 retryDelay: exponentialDelay,
                 /**
