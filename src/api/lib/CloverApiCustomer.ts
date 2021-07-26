@@ -20,7 +20,7 @@ export class CloverApiCustomer extends CloverConfig {
         const response: AxiosResponse<ICloverApiCustomerRes> = await this.client.get<ICloverApiCustomerRes>(
             `/v3/merchants/${merchantId}/customers/${customerId}`,
             {
-                params: { ...params, filter: Object.entries(params.filter ?? {}).map(([key, value]) => `${key}=${value}`) },
+                params: params.filter ? { ...params, filter: Object.entries(params.filter ?? {}).map(([key, value]) => `${key}=${value}`) } : params,
             },
         );
 
@@ -34,7 +34,7 @@ export class CloverApiCustomer extends CloverConfig {
      */
     async list(merchantId: string, params: Partial<ICloverApiCustomerParam> = {}): Promise<CloverApiCustomerListResModel> {
         const response: AxiosResponse<ICloverApiCustomerListRes> = await this.client.get<ICloverApiCustomerListRes>(`/v3/merchants/${merchantId}/customers`, {
-            params: { ...params, filter: Object.entries(params.filter ?? {}).map(([key, value]) => `${key}=${value}`) },
+            params: params.filter ? { ...params, filter: Object.entries(params.filter ?? {}).map(([key, value]) => `${key}=${value}`) } : params,
         });
 
         return plainToClass(CloverApiCustomerListResModel, response.data);
