@@ -1,5 +1,6 @@
-import type { ICloverApiPrinter } from '../interface';
+import type { ICloverApiElementPrinter } from '../interface';
 
-export class CloverApiPrinterModel implements ICloverApiPrinter {
+export class CloverApiPrinterModel implements ICloverApiElementPrinter {
     id?: string;
+    type: string;
 }

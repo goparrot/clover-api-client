@@ -7,3 +7,4 @@ export * from './CloverRefundListResModel';
 export * from './CloverPayOrderResModel';
 export * from './CloverReturnOrderResModel';
 export * from './CloverOrderItemModel';
+export * from './CloverPayOrderSourceModel';
