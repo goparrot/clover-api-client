@@ -15,3 +15,5 @@ export * from './CloverApiLineItemModel';
 export * from './CloverApiModifierModel';
 export * from './CloverApiModificationModel';
 export * from './CloverApiItemReferenceModel';
+export * from './CloverApiMerchantResModel';
+export * from './CloverApiAddressModel';

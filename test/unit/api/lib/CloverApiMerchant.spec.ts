@@ -1,7 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
+import { CloverApiMerchant, CloverApiOrderTypeElementResModel, CloverApiDefaultServiceChargeModel, CloverApiMerchantResModel } from '../../../../src/api';
 import type { ICloverApiOrderTypeElementRes } from '../../../../src/api';
-import { CloverApiMerchant, CloverApiOrderTypeElementResModel, CloverApiDefaultServiceChargeModel } from '../../../../src/api';
-
 import { CloverAxiosException } from '../../../../src/';
 
 describe('CloverApiMerchant (unit)', () => {
@@ -54,6 +53,57 @@ describe('CloverApiMerchant (unit)', () => {
         enabled: true,
         percentage: 1,
         percentageDecimal: 110000,
+    };
+
+    const cloverApiMerchantResModel: CloverApiMerchantResModel = {
+        href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}`,
+        id: fakeMerchantId,
+        name: 'GoParrot',
+        owner: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/employees/MEBZE2SG4VZEJ`,
+            id: 'MEBZE2SG4VZEJ',
+            orders: {
+                href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/employees/MEBZE2SG4VZEJ/orders`,
+            },
+        },
+        address: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/address`,
+        },
+        merchantPlan: {
+            id: 'FKNKX0SAATWAG',
+        },
+        createdTime: 1604482652000,
+        gateway: {},
+        tenders: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/tenders`,
+        },
+        shifts: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/shifts`,
+        },
+        orders: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/orders`,
+        },
+        payments: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/payments`,
+        },
+        taxRates: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/tax_rates`,
+        },
+        printers: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/printers`,
+        },
+        modifierGroups: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/modifier_groups`,
+        },
+        orderTypes: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/order_types`,
+        },
+        reseller: {
+            id: '55ZBBW12EAF2W',
+        },
+        opening_hours: {
+            href: `https://sandbox.dev.clover.com/v3/merchants/${fakeMerchantId}/opening_hours`,
+        },
     };
 
     beforeEach(() => {
@@ -113,6 +163,35 @@ describe('CloverApiMerchant (unit)', () => {
             mock.onGet(`/v3/merchants/${fakeInvalidMerchantId}/default_service_charge`).reply(401, { message: '401 Unauthorized' });
 
             await expect(cloverApiMerchant.getDefaultService(fakeInvalidMerchantId)).rejects.toMatchObject({
+                constructor: CloverAxiosException,
+                message: 'Request failed with status code 401, Response: {"message":"401 Unauthorized"}',
+            });
+        });
+    });
+
+    describe('#retrieve', () => {
+        it('should return plain data', async () => {
+            mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(200, cloverApiMerchantResModel);
+            const res: CloverApiMerchantResModel = await cloverApiMerchant.retrieve(fakeMerchantId);
+
+            expect(cloverApiMerchantResModel).toEqual(res);
+            expect(res).toBeInstanceOf(CloverApiMerchantResModel);
+        });
+
+        it('should throw error, invalid access token', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeInvalidAccessToken });
+            mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(401, { message: '401 Unauthorized' });
+
+            await expect(cloverApiMerchant.retrieve(fakeMerchantId)).rejects.toMatchObject({
+                constructor: CloverAxiosException,
+                message: 'Request failed with status code 401, Response: {"message":"401 Unauthorized"}',
+            });
+        });
+
+        it('should throw error, invalid merchant id', async () => {
+            mock.onGet(`/v3/merchants/${fakeInvalidMerchantId}`).reply(401, { message: '401 Unauthorized' });
+
+            await expect(cloverApiMerchant.retrieve(fakeInvalidMerchantId)).rejects.toMatchObject({
                 constructor: CloverAxiosException,
                 message: 'Request failed with status code 401, Response: {"message":"401 Unauthorized"}',
             });
