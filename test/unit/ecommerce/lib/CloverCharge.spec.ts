@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import { CloverChargeModel, CloverCharge, CloverChargeResModel } from '../../../../src/ecommerce';
 import type { ICloverSource, ICloverChargeReq } from '../../../../src/ecommerce';
-import { CloverAxiosException } from '../../../../src/common';
+import { CloverAxiosException } from '../../../../src';
 
 describe('CloverCharge (unit)', () => {
     const baseUrl: string = 'https://scl-sandbox.dev.clover.com';

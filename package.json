@@ -1,6 +1,6 @@
 {
     "name": "@goparrot/clover-api-client",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Typescript library which implements Clover API",
     "main": "src/index.ts",
     "lint-staged": {
@@ -69,6 +69,7 @@
         "qs": "^6.10.1",
         "reflect-metadata": "^0.1.13",
         "ts-node": "^9.1.1",
-        "typescript": "^4.2.4"
+        "typescript": "^4.2.4",
+        "commitizen": "^4.2.3"
     }
 }

@@ -1,8 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import { CloverRefundStatusEnum, CloverRefundResModel, CloverRefundListResModel, CloverRefund } from '../../../../src/ecommerce';
 import type { ICloverRefundRes, ICloverRefundReq, ICloverRefundListRes } from '../../../../src/ecommerce';
-
-import { CloverAxiosException } from '../../../../src/common/exception/CloverAxiosException';
+import { CloverAxiosException } from '../../../../src';
 
 describe('CloverRefund (unit)', () => {
     const baseUrl: string = 'https://scl-sandbox.dev.clover.com';
