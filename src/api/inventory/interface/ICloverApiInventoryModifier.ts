@@ -1,3 +1,4 @@
+import type { ICloverApiModifierGroup } from '../../interface';
 import type { ICloverApiInventoryAbstractItem } from './ICloverApiInventoryAbstractItem';
 
 export interface ICloverApiInventoryModifier extends ICloverApiInventoryAbstractItem {
@@ -6,7 +7,7 @@ export interface ICloverApiInventoryModifier extends ICloverApiInventoryAbstract
     /** Additional cost when used */
     price: number;
     /** Id of the modifier group that modifier belongs to */
-    modifierGroup: { id: string };
+    modifierGroup: ICloverApiModifierGroup;
     /** Alternate name of the modifier */
     alternateName?: string;
 }

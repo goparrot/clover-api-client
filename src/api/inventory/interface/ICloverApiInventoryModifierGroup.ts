@@ -1,6 +1,7 @@
 import type { ICloverApiInventoryItem } from './ICloverApiInventoryItem';
 import type { ICloverApiInventoryAbstractItem } from './ICloverApiInventoryAbstractItem';
 import type { ICloverApiInventoryModifier } from './ICloverApiInventoryModifier';
+import type { ICloverApiInventoryListRes } from './ICloverApiInventoryListRes';
 
 export interface ICloverApiInventoryModifierGroup extends ICloverApiInventoryAbstractItem {
     /** Whether employees will be automatically prompted to add modifiers from this category when using Register */
@@ -15,9 +16,9 @@ export interface ICloverApiInventoryModifierGroup extends ICloverApiInventoryAbs
     /** List of modifiers linked to current modifier group.
      * Will be returned if will be requested using query parameter **expand** with value **modifiers**
      */
-    modifiers?: { elements: ICloverApiInventoryModifier[] };
+    modifiers?: ICloverApiInventoryListRes<ICloverApiInventoryModifier>;
     /** List of inventory items linked to current modifier group.
      * Will be returned if will be requested using query parameter **expand** with value **items**
      */
-    items?: { elements: ICloverApiInventoryItem[] };
+    items?: ICloverApiInventoryListRes<ICloverApiInventoryItem>;
 }

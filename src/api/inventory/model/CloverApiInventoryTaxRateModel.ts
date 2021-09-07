@@ -2,7 +2,7 @@ import { Type } from 'class-transformer';
 import type { ICloverApiInventoryTaxRate } from '../interface';
 import type { CloverTaxTypeEnum } from '../../enum';
 import { CloverApiInventoryAbstractItemModel } from './CloverApiInventoryAbstractItemModel';
-import { CloverApiInventoryItemElemResModel } from './CloverApiInventoryItemElemResModel';
+import { CloverApiInventoryItemListResModel } from './CloverApiInventoryItemListResModel';
 
 export class CloverApiInventoryTaxRateModel extends CloverApiInventoryAbstractItemModel implements ICloverApiInventoryTaxRate {
     rate: number;
@@ -11,6 +11,6 @@ export class CloverApiInventoryTaxRateModel extends CloverApiInventoryAbstractIt
     modifiedTime?: number;
     taxAmount?: number;
     taxType?: CloverTaxTypeEnum;
-    @Type(() => CloverApiInventoryItemElemResModel)
-    items?: CloverApiInventoryItemElemResModel;
+    @Type(() => CloverApiInventoryItemListResModel)
+    items?: CloverApiInventoryItemListResModel;
 }

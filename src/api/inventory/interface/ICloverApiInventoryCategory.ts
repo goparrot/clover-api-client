@@ -1,6 +1,7 @@
 import type { ICloverApiInventoryItem } from './ICloverApiInventoryItem';
 import type { ICloverApiInventoryAbstractItem } from './ICloverApiInventoryAbstractItem';
 import type { ICloverApiInventoryListRes } from './ICloverApiInventoryListRes';
+import type { ICloverApiInventoryCanonicalCategory } from './ICloverApiInventoryCanonicalCategory';
 
 export interface ICloverApiInventoryCategory extends ICloverApiInventoryAbstractItem {
     /** Integer used to determine how this category is sorted against other categories. */
@@ -12,5 +13,5 @@ export interface ICloverApiInventoryCategory extends ICloverApiInventoryAbstract
     /** The time this category was last modified */
     modifiedTime?: number;
     /** Reference to canonical category */
-    canonical?: { id: string };
+    canonical?: ICloverApiInventoryCanonicalCategory;
 }

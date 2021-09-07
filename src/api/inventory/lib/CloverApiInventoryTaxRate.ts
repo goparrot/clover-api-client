@@ -10,10 +10,10 @@ export class CloverApiInventoryTaxRate extends CloverApiInventoryAbstractEntity<
     }
 
     /**
-     * Get all inventory categories
-     * @param {string} merchantId - the id of the merchant that returned inventory categories belongs to
+     * Get a list of inventory Tax Rates. Offset and limit params are overridden to get all results
+     * @param {string} merchantId - the id of the merchant that returned inventory Tax Rates belongs to
      * @param {Partial<ICloverApiInventoryParam>} params - the list of filters and expand options that provide
-     * the ability to get less or more information related to inventory categories
+     * the ability to get less or more information related to inventory Tax Rates
      */
     async list(merchantId: string, params: Partial<ICloverApiInventoryParam> = {}): Promise<CloverApiInventoryTaxRateModel[]> {
         const result = await this.listRaw(`/v3/merchants/${merchantId}/tax_rates`, params);
@@ -22,10 +22,10 @@ export class CloverApiInventoryTaxRate extends CloverApiInventoryAbstractEntity<
     }
 
     /**
-     * Get all inventory items
-     * @param merchantId - the id of the merchant that returned items belongs to
-     * @param params - the list of filters and expand options that provide
-     * the ability to get less or more information related to inventory items
+     * Get all inventory Tax Rates. Offset and limit params are overridden to get all results
+     * @param {string} merchantId - the id of the merchant that returned inventory Tax Rates belongs to
+     * @param {Partial<ICloverApiInventoryParam>} params - the list of filters and expand options that provide
+     * the ability to get less or more information related to inventory Tax Rates
      */
     async getAll(merchantId: string, params: Partial<ICloverApiInventoryParam> = {}): Promise<CloverApiInventoryTaxRateModel[]> {
         const result = await this.getAllRaw(`/v3/merchants/${merchantId}/tax_rates`, params);

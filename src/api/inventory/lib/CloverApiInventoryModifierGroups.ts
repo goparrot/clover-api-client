@@ -10,8 +10,8 @@ export class CloverApiInventoryModifierGroups extends CloverApiInventoryAbstract
     }
 
     /**
-     * Get all inventory categories
-     * @param {string} merchantId - the id of the merchant that returned inventory categories belongs to
+     * Get a list of inventory Modifiers Groups. Can be used offset and limit params to paginate through all results
+     * @param {string} merchantId - the id of the merchant that returned modifier groups belongs to
      * @param {Partial<ICloverApiInventoryParam>} params - the list of filters and expand options that provide
      * the ability to get less or more information related to inventory modifier groups
      */
@@ -22,8 +22,8 @@ export class CloverApiInventoryModifierGroups extends CloverApiInventoryAbstract
     }
 
     /**
-     * Get all inventory items
-     * @param {string} merchantId  - the id of the merchant that returned items belongs to
+     * Get all inventory Modifiers Groups
+     * @param {string} merchantId  - the id of the merchant that returned modifier groups belongs to
      * @param {Partial<ICloverApiInventoryParam>} params - the list of filters and expand options that provide
      * the ability to get less or more information related to inventory modifier groups
      */

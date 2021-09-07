@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
 import type { ICloverApiInventoryModifierGroup } from '../interface';
 import { CloverApiInventoryAbstractItemModel } from './CloverApiInventoryAbstractItemModel';
-import { CloverApiInventoryModifierElemResModel } from './CloverApiInventoryModifierElemResModel';
-import { CloverApiInventoryItemElemResModel } from './CloverApiInventoryItemElemResModel';
+import { CloverApiInventoryModifierListResModel } from './CloverApiInventoryModifierListResModel';
+import { CloverApiInventoryItemListResModel } from './CloverApiInventoryItemListResModel';
 
 export class CloverApiInventoryModifierGroupModel extends CloverApiInventoryAbstractItemModel implements ICloverApiInventoryModifierGroup {
     showByDefault: boolean;
@@ -10,8 +10,8 @@ export class CloverApiInventoryModifierGroupModel extends CloverApiInventoryAbst
     maxAllowed: number;
     minRequired?: number;
     alternateName?: string;
-    @Type(() => CloverApiInventoryModifierElemResModel)
-    modifiers?: CloverApiInventoryModifierElemResModel;
-    @Type(() => CloverApiInventoryItemElemResModel)
-    items?: CloverApiInventoryItemElemResModel;
+    @Type(() => CloverApiInventoryModifierListResModel)
+    modifiers?: CloverApiInventoryModifierListResModel;
+    @Type(() => CloverApiInventoryItemListResModel)
+    items?: CloverApiInventoryItemListResModel;
 }

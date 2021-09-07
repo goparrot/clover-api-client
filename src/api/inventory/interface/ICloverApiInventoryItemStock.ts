@@ -1,7 +1,7 @@
+import type { ICloverApiItem } from '../../interface';
+
 export interface ICloverApiInventoryItemStock {
-    item: {
-        id: string;
-    };
+    item: ICloverApiItem;
     stockCount: number;
     quantity: number;
     modifiedTime: number;
