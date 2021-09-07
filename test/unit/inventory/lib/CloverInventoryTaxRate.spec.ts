@@ -1,5 +1,4 @@
 import MockAdapter from 'axios-mock-adapter';
-import { HttpStatus } from '@nestjs/common';
 import type { ICloverApiInventoryParam } from '../../../../src';
 import { CloverInventoryTaxRate, CloverInventoryTaxRateModel } from '../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../common';
@@ -21,7 +20,7 @@ describe('CloverInventoryTaxRate (unit)', () => {
 
     describe('#getAll', () => {
         it('should return plain data', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`, {}).reply(HttpStatus.OK, cloverInventoryTaxRateListRes);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`, {}).reply(200, cloverInventoryTaxRateListRes);
             const data: CloverInventoryTaxRateModel[] = await cloverInventoryTaxRate.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryTaxRateModel);
@@ -35,7 +34,7 @@ describe('CloverInventoryTaxRate (unit)', () => {
                 offset: 1,
                 limit: 1,
             };
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`, listParams).reply(HttpStatus.OK, cloverInventoryTaxRateListResWithOffsetParam);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`, listParams).reply(200, cloverInventoryTaxRateListResWithOffsetParam);
             const data: CloverInventoryTaxRateModel[] = await cloverInventoryTaxRate.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryTaxRateModel);

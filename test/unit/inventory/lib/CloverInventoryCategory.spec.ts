@@ -1,5 +1,4 @@
 import MockAdapter from 'axios-mock-adapter';
-import { HttpStatus } from '@nestjs/common';
 import type { ICloverApiInventoryParam } from '../../../../src';
 import { CloverInventoryCategory, CloverInventoryCategoryModel } from '../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../common';
@@ -21,7 +20,7 @@ describe('CloverInventoryCategory (unit)', () => {
 
     describe('#getAll', () => {
         it('should return plain data', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/categories`, {}).reply(HttpStatus.OK, cloverInventoryCategoryListRes);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/categories`, {}).reply(200, cloverInventoryCategoryListRes);
             const data: CloverInventoryCategoryModel[] = await cloverInventoryCategory.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryCategoryModel);
@@ -35,7 +34,7 @@ describe('CloverInventoryCategory (unit)', () => {
                 offset: 1,
                 limit: 1,
             };
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/categories`, listParams).reply(HttpStatus.OK, cloverInventoryCategoryListResWithOffset);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/categories`, listParams).reply(200, cloverInventoryCategoryListResWithOffset);
             const data: CloverInventoryCategoryModel[] = await cloverInventoryCategory.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryCategoryModel);

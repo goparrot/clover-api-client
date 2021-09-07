@@ -1,5 +1,4 @@
 import MockAdapter from 'axios-mock-adapter';
-import { HttpStatus } from '@nestjs/common';
 import type { ICloverApiInventoryParam } from '../../../../src';
 import { CloverInventoryItem, CloverInventoryItemModel } from '../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../common';
@@ -23,7 +22,7 @@ describe('CloverInventoryItem (unit)', () => {
 
     describe('#getAll', () => {
         it('should return all clover inventory items', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/items`, {}).reply(HttpStatus.OK, cloverInventoryItemListRes);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/items`, {}).reply(200, cloverInventoryItemListRes);
             const data: CloverInventoryItemModel[] = await cloverInventoryItem.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryItemModel);
@@ -35,7 +34,7 @@ describe('CloverInventoryItem (unit)', () => {
                 offset: 1,
                 limit: 1,
             };
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/items`, listParams).reply(HttpStatus.OK, cloverInventoryItemListResWithOffsetParam);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/items`, listParams).reply(200, cloverInventoryItemListResWithOffsetParam);
             const data: CloverInventoryItemModel[] = await cloverInventoryItem.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryItemModel);
@@ -45,7 +44,7 @@ describe('CloverInventoryItem (unit)', () => {
 
     describe('getOne', () => {
         it('should return corresponding inventory item', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/items/${cloverInventoryItemId}`, {}).reply(HttpStatus.OK, cloverInventoryItemGetOneRes);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/items/${cloverInventoryItemId}`, {}).reply(200, cloverInventoryItemGetOneRes);
             const data: CloverInventoryItemModel = await cloverInventoryItem.getOne(fakeMerchantId, cloverInventoryItemId);
 
             expect(data).toBeInstanceOf(CloverInventoryItemModel);

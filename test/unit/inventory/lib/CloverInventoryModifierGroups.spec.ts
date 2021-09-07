@@ -1,5 +1,4 @@
 import MockAdapter from 'axios-mock-adapter';
-import { HttpStatus } from '@nestjs/common';
 import type { ICloverApiInventoryParam } from '../../../../src';
 import { CloverInventoryModifierGroups, CloverInventoryModifierGroupModel } from '../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../common';
@@ -21,7 +20,7 @@ describe('CloverInventoryModifierGroups (unit)', () => {
 
     describe('#getAll', () => {
         it('should return plain data', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`, {}).reply(HttpStatus.OK, cloverInventoryModifierGroupsListRes);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`, {}).reply(200, cloverInventoryModifierGroupsListRes);
             const data: CloverInventoryModifierGroupModel[] = await cloverInventoryModifierGroups.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryModifierGroupModel);
@@ -35,7 +34,7 @@ describe('CloverInventoryModifierGroups (unit)', () => {
                 offset: 1,
                 limit: 1,
             };
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`, listParams).reply(HttpStatus.OK, cloverInventoryModifierGroupsListResWithOffset);
+            mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`, listParams).reply(200, cloverInventoryModifierGroupsListResWithOffset);
             const data: CloverInventoryModifierGroupModel[] = await cloverInventoryModifierGroups.getAll(fakeMerchantId);
 
             expect(data[0]).toBeInstanceOf(CloverInventoryModifierGroupModel);
