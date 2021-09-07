@@ -8,4 +8,4 @@ export * from './ICloverApiInventoryListRes';
 export * from './ICloverApiInventoryTaxRate';
 export * from './ICloverApiInventoryItemStock';
 export * from './ICloverApiInventoryCanonicalCategory';
-export * from './ICloverApiExtendedEntities';
+export * from './ICloverApiExtendData';

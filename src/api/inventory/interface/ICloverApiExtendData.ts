@@ -4,7 +4,7 @@ import type { ICloverApiInventoryModifier } from './ICloverApiInventoryModifier'
 import type { ICloverApiInventoryModifierGroup } from './ICloverApiInventoryModifierGroup';
 import type { ICloverApiInventoryTaxRate } from './ICloverApiInventoryTaxRate';
 
-export type ICloverApiExtendedEntities =
+export type ICloverApiExtendData =
     | ICloverApiInventoryCategory
     | ICloverApiInventoryItem
     | ICloverApiInventoryModifier

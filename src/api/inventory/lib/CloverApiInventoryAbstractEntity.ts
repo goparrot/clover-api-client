@@ -2,9 +2,9 @@ import type { AxiosResponse } from 'axios';
 import type { ICloverAxiosConfig } from '../../../common';
 import { CloverConfig, paginationMaxLimit } from '../../../common';
 import { mapParams } from '../util';
-import type { ICloverApiInventoryParam, ICloverApiInventoryListRes, ICloverApiExtendedEntities } from '../interface';
+import type { ICloverApiInventoryParam, ICloverApiInventoryListRes, ICloverApiExtendData } from '../interface';
 
-export class CloverApiInventoryAbstractEntity<T extends ICloverApiExtendedEntities> extends CloverConfig {
+export class CloverApiInventoryAbstractEntity<T extends ICloverApiExtendData> extends CloverConfig {
     constructor(config: ICloverAxiosConfig) {
         super(config);
     }
