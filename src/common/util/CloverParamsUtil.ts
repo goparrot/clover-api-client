@@ -1,4 +1,4 @@
-import type { ICloverApiInventoryParam, ICloverApiInventoryParamMappedFilters } from '../../inventory';
+import type { ICloverApiInventoryParam, ICloverApiInventoryParamMappedFilters } from '../../api/inventory';
 
 export function mapParams(params: Partial<ICloverApiInventoryParam>): Partial<ICloverApiInventoryParamMappedFilters> | Partial<ICloverApiInventoryParam> {
     return params.filter
