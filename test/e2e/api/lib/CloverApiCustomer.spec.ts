@@ -32,7 +32,7 @@ describe('CloverApiCustomer (e2e)', () => {
         });
 
         it('should not retry with status 404', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeInvalidCustomerId}`).reply(404);
 
@@ -42,71 +42,38 @@ describe('CloverApiCustomer (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(500);
 
             await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(500);
-
-            await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(503);
 
             await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(503);
-
-            await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(504);
 
             await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(504);
-
-            await cloverApiCustomer.retrieve(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 
     describe('#list', () => {
@@ -123,71 +90,38 @@ describe('CloverApiCustomer (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(500);
 
             await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(500);
-
-            await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(503);
 
             await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(503);
-
-            await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(504);
 
             await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiCustomer.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/customers`).reply(504);
-
-            await cloverApiCustomer.list(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 
     describe('#delete', () => {
@@ -221,64 +155,37 @@ describe('CloverApiCustomer (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(500);
 
             await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(500);
-
-            await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(503);
 
             await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(503);
-
-            await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiCustomer = new CloverApiCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiCustomer.client);
             mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(504);
 
             await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            mock.onDelete(`/v3/merchants/${fakeMerchantId}/customers/${fakeCustomerId}`).reply(504);
-
-            await cloverApiCustomer.delete(fakeMerchantId, fakeCustomerId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 });

@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { CloverApiInventoryTaxRate, defaultMaxRetries } from '../../../../../src';
+import { CloverApiInventoryTaxRate } from '../../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../../common';
 
 describe('CloverApiInventoryTaxRate (e2e)', () => {
@@ -57,7 +57,7 @@ describe('CloverApiInventoryTaxRate (e2e)', () => {
         });
 
         it('should not retry with status 404', async () => {
-            cloverInventoryTaxRate = new CloverApiInventoryTaxRate({ baseUrl, accessToken: fakeAccessToken, maxRetries: 2 });
+            cloverInventoryTaxRate = new CloverApiInventoryTaxRate({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverInventoryTaxRate.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`).reply(404);
 
@@ -67,23 +67,14 @@ describe('CloverApiInventoryTaxRate (e2e)', () => {
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`).reply(500);
-
-            await cloverInventoryTaxRate.getAll(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(defaultMaxRetries);
-            });
-        }, 20_000);
-
-        it('should do 2 retries with status 503', async () => {
-            cloverInventoryTaxRate = new CloverApiInventoryTaxRate({ baseUrl, accessToken: fakeAccessToken, maxRetries: 2 });
+        it('should do 1 retry with status 503', async () => {
+            cloverInventoryTaxRate = new CloverApiInventoryTaxRate({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverInventoryTaxRate.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/tax_rates`).reply(503);
 
             await cloverInventoryTaxRate.getAll(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(2);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         }, 10_000);
 

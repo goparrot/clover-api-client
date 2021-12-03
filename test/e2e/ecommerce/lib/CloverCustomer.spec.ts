@@ -79,7 +79,7 @@ describe('CloverCustomer (e2e)', () => {
         });
 
         it('should not retry with status 500', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onPost('/v1/customers', cloverCustomerReq).reply(500);
 
@@ -167,45 +167,36 @@ describe('CloverCustomer (e2e)', () => {
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onPut(`/v1/customers/${fakeCustomerId}`).reply(500);
-
-            await cloverCustomer.update(fakeCustomerId, cloverCustomerReq).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 500', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onPut(`/v1/customers/${fakeCustomerId}`).reply(500);
 
             await cloverCustomer.update(fakeCustomerId, cloverCustomerReq).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 3 retries with status 503', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onPut(`/v1/customers/${fakeCustomerId}`).reply(503);
 
             await cloverCustomer.update(fakeCustomerId, cloverCustomerReq).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 3 retries with status 504', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onPut(`/v1/customers/${fakeCustomerId}`).reply(504);
 
             await cloverCustomer.update(fakeCustomerId, cloverCustomerReq).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
     });
@@ -251,64 +242,37 @@ describe('CloverCustomer (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(500);
 
             await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(500);
-
-            await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(503);
 
             await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(503);
-
-            await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverCustomer = new CloverCustomer({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCustomer.client);
             mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(504);
 
             await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            mock.onDelete(`/v1/customers/${fakeCustomerId}/sources/${fakeCardId}`).reply(504);
-
-            await cloverCustomer.revoke(fakeCustomerId, fakeCardId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 });

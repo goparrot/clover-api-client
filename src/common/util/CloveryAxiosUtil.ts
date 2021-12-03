@@ -10,7 +10,7 @@ import type { ICloverAxiosConfig, ICloverAxiosRequestConfig } from '../interface
 export const defaultMaxRetries = 6;
 
 /**
- * @throws {AxiosException}
+ * @throws {CloverAxiosException}
  */
 export function createAxiosInstance(config: ICloverAxiosConfig): AxiosInstance {
     Axios.defaults.timeout = 15000;
@@ -66,20 +66,24 @@ export function createAxiosInstance(config: ICloverAxiosConfig): AxiosInstance {
     );
 
     axios.interceptors.request.use((requestConfig: AxiosRequestConfig): AxiosRequestConfig => {
+        if (!requestConfig.headers) {
+            requestConfig.headers = {};
+        }
+
         if (config.tokenRateLimit) {
-            requestConfig.headers['X-RateLimit-tokenLimit'] = config.tokenRateLimit;
+            requestConfig.headers['X-RateLimit-tokenLimit'] = `${config.tokenRateLimit}`;
         }
 
         if (config.crossTokenRateLimit) {
-            requestConfig.headers['X-RateLimit-crossTokenLimit'] = config.crossTokenRateLimit;
+            requestConfig.headers['X-RateLimit-crossTokenLimit'] = `${config.crossTokenRateLimit}`;
         }
 
         if (config.tokenConcurrentRateLimit) {
-            requestConfig.headers['X-RateLimit-tokenConcurrentLimit'] = config.tokenConcurrentRateLimit;
+            requestConfig.headers['X-RateLimit-tokenConcurrentLimit'] = `${config.tokenConcurrentRateLimit}`;
         }
 
         if (config.crossTokenConcurrentRateLimit) {
-            requestConfig.headers['X-RateLimit-crossTokenConcurrentLimit'] = config.crossTokenConcurrentRateLimit;
+            requestConfig.headers['X-RateLimit-crossTokenConcurrentLimit'] = `${config.crossTokenConcurrentRateLimit}`;
         }
 
         // @ts-ignore
