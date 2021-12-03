@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { CloverApiInventoryModifierGroups, defaultMaxRetries } from '../../../../../src';
+import { CloverApiInventoryModifierGroups } from '../../../../../src';
 import { baseUrl, fakeAccessToken, fakeMerchantId } from '../../../../common';
 
 describe('CloverApiInventoryModifierGroups (e2e)', () => {
@@ -57,7 +57,7 @@ describe('CloverApiInventoryModifierGroups (e2e)', () => {
         });
 
         it('should not retry with status 404', async () => {
-            cloverInventoryModifierGroups = new CloverApiInventoryModifierGroups({ baseUrl, accessToken: fakeAccessToken, maxRetries: 2 });
+            cloverInventoryModifierGroups = new CloverApiInventoryModifierGroups({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverInventoryModifierGroups.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`).reply(404);
 
@@ -67,23 +67,14 @@ describe('CloverApiInventoryModifierGroups (e2e)', () => {
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`).reply(500);
-
-            await cloverInventoryModifierGroups.getAll(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(defaultMaxRetries);
-            });
-        }, 20_000);
-
-        it('should do 2 retries with status 503', async () => {
-            cloverInventoryModifierGroups = new CloverApiInventoryModifierGroups({ baseUrl, accessToken: fakeAccessToken, maxRetries: 2 });
+        it('should do 1 retry with status 503', async () => {
+            cloverInventoryModifierGroups = new CloverApiInventoryModifierGroups({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverInventoryModifierGroups.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/modifier_groups`).reply(503);
 
             await cloverInventoryModifierGroups.getAll(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(2);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         }, 10_000);
 

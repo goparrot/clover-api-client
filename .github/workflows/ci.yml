@@ -1,8 +1,10 @@
-name: CI
+name: ci
 
 on:
+  push:
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   commitlint:
@@ -20,34 +22,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [14, 16]
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-      - name: Git Checkout
+      - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Read node version from `.nvmrc` file
-        id: nvmrc
-        uses: browniebroke/read-nvmrc-action@v1
-
-      - name: Use Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ steps.nvmrc.outputs.node_version }}
+          node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
+
+      - run: node --version
+      - run: npm --version
 
       - name: Install npm dependencies
         run: npm install --progress=false --loglevel=warn --ignore-scripts
 
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Dry run of publishing
+        run: npm run publish:dev:dry
 
       - name: Lint code
         run: npm run lint
 
-      - name: Build dist
-        run: npm run build:dist
-
-      - name: Check build
-        run: npm run typecheck
-
-      - name: Run tests and covarage
+      - name: Run tests
         run: npm run coverage

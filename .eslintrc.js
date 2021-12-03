@@ -19,7 +19,6 @@ module.exports = {
     rules: {
         camelcase: 'off',
         'spaced-comment': ['error', 'always'],
-        'no-console': 'error',
         'array-callback-return': ['error', { checkForEach: true }],
         'use-isnan': ['error', { enforceForSwitchCase: true, enforceForIndexOf: true }],
         '@typescript-eslint/no-non-null-assertion': 'off',

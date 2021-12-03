@@ -205,66 +205,39 @@ describe('CloverCharge (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
 
             mock.onGet(`/v1/charges/${fakeChargeId}`).reply(500);
 
             await cloverCharge.retrieve(fakeChargeId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onGet(`/v1/charges/${fakeChargeId}`).reply(500);
-
-            await cloverCharge.retrieve(fakeChargeId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
             mock.onGet(`/v1/charges/${fakeChargeId}`).reply(503);
 
             await cloverCharge.retrieve(fakeChargeId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            mock.onGet(`/v1/charges/${fakeChargeId}`).reply(503);
-
-            await cloverCharge.retrieve(fakeChargeId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
             mock.onGet(`/v1/charges/${fakeChargeId}`).reply(504);
 
             await cloverCharge.retrieve(fakeChargeId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            mock.onGet(`/v1/charges/${fakeChargeId}`).reply(504);
-
-            await cloverCharge.retrieve(fakeChargeId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20000);
     });
 
     describe('#list', () => {
@@ -289,64 +262,37 @@ describe('CloverCharge (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
             mock.onGet('/v1/charges').reply(500);
 
             await cloverCharge.list().catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            mock.onGet('/v1/charges').reply(500);
-
-            await cloverCharge.list().catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
             mock.onGet('/v1/charges').reply(503);
 
             await cloverCharge.list().catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            mock.onGet('/v1/charges').reply(503);
-
-            await cloverCharge.list().catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverCharge = new CloverCharge({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverCharge.client);
             mock.onGet('/v1/charges').reply(504);
 
             await cloverCharge.list().catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            mock.onGet('/v1/charges').reply(504);
-
-            await cloverCharge.list().catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 });

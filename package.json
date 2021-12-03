@@ -1,13 +1,35 @@
 {
     "name": "@goparrot/clover-api-client",
-    "version": "0.0.5",
+    "version": "1.0.0",
     "description": "Typescript library which implements Clover API",
-    "main": "src/index.ts",
+    "keywords": [
+        "clover",
+        "typscript"
+    ],
+    "author": "GoParrot",
+    "license": "MIT",
+    "homepage": "https://github.com/goparrot/clover-api-client#readme",
+    "bugs": {
+        "url": "https://github.com/goparrot/clover-api-client/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/goparrot/clover-api-client.git"
+    },
+    "engines": {
+        "node": ">=14",
+        "npm": "^8"
+    },
+    "directories": {
+        "bin": "./bin",
+        "lib": "./src",
+        "test": "./test"
+    },
     "lint-staged": {
         "*.{ts,js,json}": [
             "npm run format:base"
         ],
-        "*.{md}": [
+        "*.md": [
             "npm run prettier:base"
         ]
     },
@@ -19,7 +41,7 @@
     "scripts": {
         "commit": "git-cz",
         "prepare": "husky install",
-        "pre:commit": "git add . && npm run format:staged && npm run typecheck && npm run lint && npm run coverage",
+        "pre-commit": "git add . && npm run format:staged && npm run typecheck && npm run publish:dev:dry && npm run lint && npm run coverage",
         "prettier": "npm run prettier:base -- '**/**.+(md)'",
         "prettier:base": "prettier --ignore-path .eslintignore --write",
         "format": "npm run prettier && npm run lint -- --fix",
@@ -29,47 +51,48 @@
         "lint:base": "npm run lint:config:check && eslint",
         "lint:config:check": "eslint-config-prettier src/index.ts",
         "typecheck": "tsc -p tsconfig.json --noEmit",
-        "publish": "npm run build:dist && node bin/prepublish.js && npm publish dist",
+        "build:dist": "rimraf dist/* && run-p build:dist:cjs build:dist:esm build:dist:types",
+        "build:dist:cjs": "tsc --project tsconfig.build-cjs.json",
+        "build:dist:esm": "tsc --project tsconfig.build-esm.json",
+        "build:dist:types": "tsc -b tsconfig.build-types.json",
+        "publish": "npm run build:dist && ts-node -T bin/prepublish.ts && npm publish ./dist",
         "publish:dev": "npm run publish --tag dev",
         "publish:dev:dry": "npm run publish:dev --dry-run",
-        "build:dist": "rm -rf dist/* && tsc --project tsconfig.build.json",
         "test": "jest --runInBand",
         "coverage": "npm run test -- --coverage"
     },
-    "keywords": [],
-    "author": "GoParrot",
-    "license": "ISC",
     "peerDependencies": {
-        "axios": ">=0.21.1",
-        "axios-retry": "^3.1.9",
-        "class-transformer": "0.3.1",
-        "deepmerge": "^4.2.2",
-        "qs": ">=6.10.1",
+        "axios": ">=0.24.0",
+        "axios-retry": "^3.1.0",
+        "class-transformer": "0.2.3 - 0.3.1 || ^0.5.1",
         "reflect-metadata": "^0.1.13"
     },
+    "dependencies": {
+        "deepmerge": "^4.0.0",
+        "qs": "^6.10.1"
+    },
     "devDependencies": {
-        "@babel/plugin-proposal-decorators": "^7.14.2",
-        "@babel/preset-env": "^7.14.1",
-        "@babel/preset-typescript": "^7.13.0",
-        "@commitlint/cli": "^12.1.1",
-        "@commitlint/config-conventional": "^12.1.1",
+        "@commitlint/cli": "^15.0.0",
+        "@commitlint/config-conventional": "^15.0.0",
         "@goparrot/eslint-config": "^1.0.0",
-        "@types/jest": "^26.0.23",
-        "@types/node": "^15.0.2",
+        "@types/jest": "^27.0.3",
+        "@types/node": "^16.11.11",
         "@types/qs": "^6.9.6",
-        "axios": "^0.21.1",
+        "axios": "^0.24.0",
         "axios-mock-adapter": "^1.19.0",
-        "axios-retry": "3.1.9",
-        "class-transformer": "0.3.1",
+        "axios-retry": "^3.2.4",
+        "class-transformer": "^0.5.1",
+        "commitizen": "^4.2.3",
         "deepmerge": "^4.2.2",
-        "husky": "^6.0.0",
-        "jest": "^26.6.3",
-        "lint-staged": "^10.5.4",
+        "husky": "^7.0.4",
+        "jest": "^27.4.3",
+        "lint-staged": "^12.1.2",
+        "npm-run-all": "^4.1.5",
         "prettier": "^2.2.1",
-        "qs": "^6.10.1",
         "reflect-metadata": "^0.1.13",
-        "ts-node": "^9.1.1",
-        "typescript": "^4.2.4",
-        "commitizen": "^4.2.3"
+        "rimraf": "^3.0.2",
+        "ts-jest": "^27.0.7",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.2"
     }
 }

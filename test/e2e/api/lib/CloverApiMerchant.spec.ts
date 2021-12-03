@@ -28,71 +28,38 @@ describe('CloverApiMerchant (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(500);
 
             await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(500);
-
-            await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(503);
 
             await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(503);
-
-            await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(504);
 
             await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/order_types`).reply(504);
-
-            await cloverApiMerchant.listOrderType(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 
     describe('#getDefaultService', () => {
@@ -109,71 +76,38 @@ describe('CloverApiMerchant (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(500);
 
             await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(500);
-
-            await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(503);
 
             await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(503);
-
-            await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(504);
 
             await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}/default_service_charge`).reply(504);
-
-            await cloverApiMerchant.getDefaultService(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 
     describe('#retrieve', () => {
@@ -190,70 +124,37 @@ describe('CloverApiMerchant (e2e)', () => {
             });
         });
 
-        it('should do 3 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 500', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(500);
 
             await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 500', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(500);
-
-            await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(500);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 503', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(503);
 
             await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
 
-        it('should do 6 retries with status 503', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(503);
-
-            await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(503);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
-
-        it('should do 3 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 3 });
+        it('should do 1 retry with status 504', async () => {
+            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken, maxRetries: 1 });
             mock = new MockAdapter(cloverApiMerchant.client);
             mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(504);
 
             await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
                 expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(3);
+                expect(e.config['axios-retry'].retryCount).toBe(1);
             });
         });
-
-        it('should do 6 retries with status 504', async () => {
-            cloverApiMerchant = new CloverApiMerchant({ baseUrl, accessToken: fakeAccessToken });
-            mock = new MockAdapter(cloverApiMerchant.client);
-            mock.onGet(`/v3/merchants/${fakeMerchantId}`).reply(504);
-
-            await cloverApiMerchant.retrieve(fakeMerchantId).catch((e) => {
-                expect(e.response.status).toBe(504);
-                expect(e.config['axios-retry'].retryCount).toBe(6);
-            });
-        }, 20_000);
     });
 });
