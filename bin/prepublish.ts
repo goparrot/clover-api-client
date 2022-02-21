@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { EOL } from 'os';
 import parseArgs from 'minimist';
 
 async function run(): Promise<void> {
@@ -23,14 +24,13 @@ async function run(): Promise<void> {
         config,
         ...packageJson
     } = JSON.parse(fs.readFileSync(path.join(process.cwd(), `./${from}/package.json`)).toString());
-    delete packageJson.engines.npm;
 
     packageJson.main = main;
     packageJson.module = module;
     packageJson.typings = typings;
     packageJson.sideEffects = false;
 
-    fs.writeFileSync(`${to}/package.json`, JSON.stringify(packageJson, null, 4));
+    fs.writeFileSync(`${to}/package.json`, JSON.stringify(packageJson, null, 4) + EOL);
 
     const copyFiles = ['README.md'];
     for (const file of copyFiles) {
